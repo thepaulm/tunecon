@@ -34,5 +34,9 @@ func main() {
 		fmt.Printf("Error parsing config.\n")
 		os.Exit(-1)
 	}
-	sync.Dirs(cfg.Src, cfg.Dst)
+	err = sync.Dirs(cfg.Src, cfg.Dst)
+	if err != nil {
+		fmt.Printf("failed: %v\n", err)
+		os.Exit(-1)
+	}
 }
