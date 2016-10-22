@@ -77,7 +77,9 @@ func CleanFiles(src string, dst string) error {
 		_, err := os.Stat(srcF)
 		if err != nil {
 			// dst not in src, remove from src
-			err = os.Remove(dstF.Name())
+			dstFRM := fmt.Sprintf("%s/%s", dst, dstF.Name())
+			fmt.Printf("Cleaning: %s\n", dstFRM)
+			err = os.Remove(dstFRM)
 			if err != nil {
 				fmt.Printf("Error removing file %s: %v\n", dstF.Name(), err)
 			}
@@ -120,7 +122,7 @@ func cleanDst(src string, dst string) error {
 				fmt.Printf("(you may want to check this yourself)\n")
 				continue
 			}
-			err = CleanFiles(fmt.Sprintf("%s/%s", dst, dstD.Name()), srcD)
+			err = CleanFiles(srcD, fmt.Sprintf("%s/%s", dst, dstD.Name()))
 			if err != nil {
 				fmt.Printf("srcD: %v", err)
 				return err
